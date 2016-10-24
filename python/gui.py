@@ -1,49 +1,48 @@
 # Follows tutorial from tutorialspoint adapted for self study
 
 import sys
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4 import QtGui
 
-def window():
-   app = QApplication(sys.argv)
-   win = QDialog()
-   b1 = QPushButton(win)
-   b1.setText("Button1")
-   b1.move(50,20)
-   b1.clicked.connect(b1_clicked)
+class Sudoku(QtGui.QWidget):
+    def __init__(self):
+        super(Sudoku,self).__init__()
+        grid=QtGui.QGridLayout()
+        self.setLayout(grid)
+        positions = [(i,j) for i in range(10) for j in range(10)]
+        for pos in positions:
+            button = QtGui.QPushButton(" ")
+            button.setMaximumWidth(30)
+            button.setMaximumHeight(30)
+            grid.addWidget(button, *pos)
 
-   b2 = QPushButton(win)
-   b2.setText("Button2")
-   b2.move(50,50)
-   QObject.connect(b2,SIGNAL("clicked()"),b2_clicked)
+        self.move(300,150)
+        self.setWindowTitle('Sudoku Solver')
+        self.show()
 
-   win.setGeometry(100,100,200,100)
-   win.setWindowTitle("PyQt")
-   win.show()
-   sys.exit(app.exec_())
-
-def b1_clicked():
-   d = QDialog()
-   b1 = QPushButton("ok",d)
-   b1.move(50,50)
-   d.setWindowTitle("Button one")
-   d.setWindowModality(Qt.ApplicationModal)
-   d.exec_()
-
-def b2_clicked():
-   msg = QMessageBox()
-   msg.setIcon(QMessageBox.Information)
-
-   msg.setText("This is a message box")
-   msg.setInformativeText("This is additional information")
-   msg.setWindowTitle("Button two")
-   msg.setDetailedText("The details are as follows:")
-   msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-   msg.buttonClicked.connect(msgbtn)
-   retval = msg.exec_()
+# def b1_clicked():
+#    d = QDialog()
+#    b1 = QPushButton("ok",d)
+#    b1.move(50,50)
+#    d.setWindowTitle("Button one")
+#    d.setWindowModality(Qt.ApplicationModal)
+#    d.exec_()
+#
+# def b2_clicked():
+#    msg = QMessageBox()
+#    msg.setIcon(QMessageBox.Information)
+#
+#    msg.setText("This is a message box")
+#    msg.setInformativeText("This is additional information")
+#    msg.setWindowTitle("Button two")
+#    msg.setDetailedText("The details are as follows:")
+#    msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+#    msg.buttonClicked.connect(msgbtn)
+#    retval = msg.exec_()
 
 def msgbtn(i):
     print "value of pressed message box button:", i.text()
 
 if __name__ == '__main__':
-   window()
+   app = QtGui.QApplication(sys.argv)
+   sudoku = Sudoku()
+   sys.exit(app.exec_())
