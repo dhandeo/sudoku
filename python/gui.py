@@ -21,10 +21,15 @@ def window():
    sys.exit(app.exec_())
 
 def b1_clicked():
-   print "Button 1 clicked"
+   d = QDialog()
+   b1 = QPushButton("ok",d)
+   b1.move(50,50)
+   d.setWindowTitle("Button one")
+   d.setWindowModality(Qt.ApplicationModal)
+   d.exec_()
 
 def b2_clicked():
-   print "Button 2 clicked"
+    print "Button2 clicked"
 
 if __name__ == '__main__':
    window()
