@@ -1,3 +1,5 @@
+# Follows tutorial from tutorialspoint adapted for self study
+
 import sys
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
@@ -29,7 +31,19 @@ def b1_clicked():
    d.exec_()
 
 def b2_clicked():
-    print "Button2 clicked"
+   msg = QMessageBox()
+   msg.setIcon(QMessageBox.Information)
+
+   msg.setText("This is a message box")
+   msg.setInformativeText("This is additional information")
+   msg.setWindowTitle("Button two")
+   msg.setDetailedText("The details are as follows:")
+   msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+   msg.buttonClicked.connect(msgbtn)
+   retval = msg.exec_()
+
+def msgbtn(i):
+    print "value of pressed message box button:", i.text()
 
 if __name__ == '__main__':
    window()
